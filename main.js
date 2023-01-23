@@ -1,5 +1,5 @@
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js';
-import { getFirestore, collection, getDocs,setDoc,doc} from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js'
+import { getFirestore, collection, getDocs,getDoc,setDoc,doc} from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js'
 
 const firebaseConfig = {
     apiKey: "AIzaSyDEIGj6mYxYpVCfwQSA8GwqS1IapNyCRBA",
@@ -25,12 +25,13 @@ document.querySelector('form').addEventListener('submit', (event) => {
     event.preventDefault()
     fetch(`http://www.omdbapi.com/?apikey=${apiKey}&s=${event.target.name.value}`)
         .then(res => res.json())
-        .then(async() => {
-            const checkFavorites = await getDocs(doc(db,'favorites','user1')) || []
+        .then(async(res) => {
+            console.log(res);
+            const checkFavorites = await getDoc(doc(db,'favorites','user1'))
             container.innerHTML = ``
 
 
-
+            console.log(checkFavorites);
 
             res.Search.forEach(e => {
                 const article = document.createElement('article')
@@ -54,8 +55,8 @@ document.querySelector('form').addEventListener('submit', (event) => {
                     heartIcon.classList.toggle('fa-regular')
 
                     if (heartIcon.className.includes('fa-solid')) {
-                        favorites.push(e)
-                        await setDoc(doc(db, "favorites","user1"),{favorites});
+                        checkFavorites.push(e)
+                        await setDoc(doc(db, "favorites","user1"),{checkFavorites});
                         
                         console.log(favorites);
                     } else {
