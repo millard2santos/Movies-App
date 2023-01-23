@@ -6,5 +6,5 @@ div.innerHTML = `
                 <p>${movies[0].Year}</p>
                 <p>${movies[0].Title}</p>
                 `
-
+console.log(movies[0]);
 document.querySelector('#container').append(div)

@@ -7,24 +7,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://kit.fontawesome.com/4ef55b311e.js" crossorigin="anonymous"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js" type="module"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js" type="module"></script>
 </head>
 
-<body>
-    <h1 class="text-7xl">Movies</h1>
-    <form action="">
+<body class="">
+    <header class="flex bg-slate-400 justify-between items-center">
+        <img src="./assets/movieicon.svg" alt="" class="w-10">
+
+    </header>
+    <nav></nav>
+    <!-- <h1 class="text-7xl ">Movies</h1> -->
+    <form action="" class="">
         <input type="text" name="name" id="name" placeholder="Movie Name">
-        <input type="submit" value="Buscar">
-        <div id="container">
-            <!-- <a href="">
-                <div>
-                    <img src="" alt="">
-                    <p>Fecha</p>
-                    <p>Nombre</p>
-                </div>
-            </a> -->
-        </div>
-        
+        <input type="submit" value="Buscar" class="">
+
+
+
+        <!-- <a href="">
+            <div>
+                <img src="" alt="">
+                <p>Fecha</p>
+                <p>Nombre</p>
+            </div>
+        </a> -->
     </form>
+    <div id="container" class="flex flex-wrap gap-10">
+        
+    </div>
+
+
+
     <script src="main.js" type="module"></script>
 
 </body>
