@@ -19,19 +19,24 @@ const apiKey = 'aa64160e'
 
 const container = document.querySelector('#container')
 
-const favorites = []
-
 document.querySelector('form').addEventListener('submit', (event) => {
     event.preventDefault()
     fetch(`http://www.omdbapi.com/?apikey=${apiKey}&s=${event.target.name.value}`)
         .then(res => res.json())
         .then(async(res) => {
             console.log(res);
-            const checkFavorites = await getDoc(doc(db,'favorites','user1'))
+            const dataFavorites = await getDoc(doc(db,'favorites','user1'))
+            let objectFavorites = dataFavorites.data()
+
+            if(!objectFavorites){
+                objectFavorites = []
+            }
+
+
+
             container.innerHTML = ``
 
-
-            console.log(checkFavorites);
+            console.log(objectFavorites);
 
             res.Search.forEach(e => {
                 const article = document.createElement('article')
@@ -55,10 +60,17 @@ document.querySelector('form').addEventListener('submit', (event) => {
                     heartIcon.classList.toggle('fa-regular')
 
                     if (heartIcon.className.includes('fa-solid')) {
-                        checkFavorites.push(e)
+
+
+
+                        console.log(objectFavorites.checkFavorites);
+
+                        i
+
+                        objectFavorites.checkFavorites.push(e)
                         await setDoc(doc(db, "favorites","user1"),{checkFavorites});
                         
-                        console.log(favorites);
+                        
                     } else {
                         console.log('no fav');
                     }
