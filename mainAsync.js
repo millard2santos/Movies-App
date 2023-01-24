@@ -1,5 +1,5 @@
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js';
-import { getFirestore, collection, getDocs, setDoc, doc, getDoc } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js'
+import { getFirestore, collection, getDocs, setDoc, doc, getDoc, query, where } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js'
 
 const firebaseConfig = {
     apiKey: "AIzaSyDEIGj6mYxYpVCfwQSA8GwqS1IapNyCRBA",
@@ -11,30 +11,56 @@ const firebaseConfig = {
 };
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app)
+// const ui = new firebaseui.auth.AuthUI(firebase.auth());
 
 
 const apiKey = 'aa64160e'
 
 document.querySelector('form').addEventListener('submit', async (event) => {
-    
+
     event.preventDefault()
-    
-
-    const fetchResults = await fetch(`http://www.omdbapi.com/?apikey=${apiKey}&s=${event.target.name.value}`)
-    const peliculas = await fetchResults.json()
-
-    
+    container.innerHTML= ``
+    const peliculas = await fetch(`http://www.omdbapi.com/?apikey=${apiKey}&s=${event.target.name.value}`).then(res => res.json()).catch(err => console.log(err))
     let favorites = await getDoc(doc(db, 'favorites', 'user1'))
-
+    let moviesCreated = await getDocs(collection(db, "movies")).then(res => {
+        let movies = []
+        res.forEach( e=> movies.push(e.data()))
+     
+        return movies
+    })
+    .then(res => res.filter(e=> e.Title === event.target.name.value ))
+    .catch(err => console.log('No Data' , err))
+    console.log(moviesCreated);
     if(favorites.exists()){
         favorites = favorites.data().favorites
         console.log('existe');
     }else{
         favorites = []
     }
-    console.log(favorites);
-    peliculas.Search.forEach(pelicula => {
-        
+
+
+
+    let fullSearch;
+    switch (true) {
+        case peliculas.Search.length > 0 && moviesCreated.length > 0:
+            fullSearch = moviesCreated.concat(peliculas.Search)
+            break;
+        case peliculas.Search.length > 0 && moviesCreated.length  <= 0:
+            fullSearch = peliculas.Search
+            break;
+        case peliculas.Search.length <= 0 && moviesCreated.length > 0:
+            fullSearch = moviesCreated
+            break;
+        default:
+            fullSearch = []
+    }
+
+    console.log(peliculas.Search.length);
+    console.log(fullSearch);
+    
+    fullSearch.forEach(pelicula => {
+        console.log(fullSearch);
+        console.log(moviesCreated);
         let heart = 'fa-regular'
         if(favorites.find(e=> e.imdbID === pelicula.imdbID)){
             heart = 'fa-solid'
@@ -52,7 +78,7 @@ document.querySelector('form').addEventListener('submit', async (event) => {
                                 `
 
         article.children[0].addEventListener('click', () => window.open(`/pages/movie.html?i=${pelicula.imdbID}`, '_self'))
-        article.classList.add('relative', 'w-60', 'rounded-xl', 'bg-slate-900', 'p-3', 'text-white', 'cursor-pointer')
+        article.classList.add('relative', 'w-60', 'rounded-xl', 'bg-slate-900', 'p-3', 'text-white', 'cursor-pointer', 'hover:scale-105', 'transition', 'duration-300')
 
         const heartIcon = article.children[2].children[1]
 
