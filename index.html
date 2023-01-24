@@ -11,37 +11,57 @@
     <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js" type="module"></script>
     <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js" type="module"></script>
     <script src="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.js"></script>
-    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600&family=Permanent+Marker&display=swap"
+        rel="stylesheet">
+
     <link rel="stylesheet" href="style.css">
 </head>
 
-<body class="">
-    <header class="flex bg-slate-400 justify-between items-center">
-        <img src="./assets/movieicon.svg" alt="" class="w-10">
-
-    </header>
-    <nav></nav>
-    <!-- <h1 class="text-7xl ">Movies</h1> -->
-    <form action="" class="">
-        <input type="text" name="name" id="name" placeholder="Movie Name">
-        <input type="submit" value="Buscar" class="">
+<body class="min-h-screen bg-gradient-to-b from-[#4c0d55] to-[#7e198c] bg-no-repeat flex justify-center py-10">
 
 
 
-        <!-- <a href="">
+
+    <div class="container flex flex-col gap-7 justify-center items-center text-white self-start">
+        <!-- <div class="burger flex flex-col gap-1.5 absolute top-3 right-3">
+            <div class="bg-black w-8 h-1 rounded-md "></div>
+            <div class="bg-black w-8 h-1 rounded-md "></div>
+            <div class="bg-black w-8 h-1 rounded-md "></div>
+
+        </div> -->
+        <h1 class="text-5xl font-semibold">Findy</h1>
+        <h2 class="text-2xl">Know more about your favorites movies!</h2>
+
+
+        <!-- <h1 class="text-7xl ">Movies</h1> -->
+        <form action="" class="w-full flex justify-center relative">
+            <!-- <i class="fa-solid fa-xl fa-magnifying-glass relative z-40 left-11 top-6"></i> -->
+            <input class=" w-1/2 p-3 px-4 bg-[#4c0d55] border border-gray-300" type="text" name="name" id="name" placeholder="Movie Name">
+            <input type="submit" value="Search" class="relative right-16 opacity-60 hover:opacity-100 cursor-pointer">
+
+
+
+            <!-- <a href="">
             <div>
                 <img src="" alt="">
                 <p>Fecha</p>
                 <p>Nombre</p>
             </div>
         </a> -->
-    </form>
-    <a href="./pages/favorites.html">FAVORITES</a>
-    <a href="./pages/newMovie.html">Create a movie</a>
-    <div id="container" class="flex flex-wrap gap-10">
-
+        </form>
+        <div class="flex flex-col gap-3 w-full items-center">
+            <ul class="flex gap-2 justify-center">
+                <li class="border border-grey-300 opacity-60 hover:opacity-100 rounded py-0.5 px-2"><a href="./pages/favorites.html">Favorites</a></li>
+                <li class="border border-grey-300 opacity-60 hover:opacity-100 rounded py-0.5 px-2"><a href="./pages/newMovie.html">Create a movie</a></li>
+            </ul>
+        </div>
+        <div id="container" class="flex flex-wrap gap-10 justify-center">
+    
+        </div>
     </div>
-
+    
 
 
     <script src="mainAsync.js" type="module"></script>

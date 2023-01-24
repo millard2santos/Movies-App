@@ -59,8 +59,6 @@ document.querySelector('form').addEventListener('submit', async (event) => {
     console.log(fullSearch);
     
     fullSearch.forEach(pelicula => {
-        console.log(fullSearch);
-        console.log(moviesCreated);
         let heart = 'fa-regular'
         if(favorites.find(e=> e.imdbID === pelicula.imdbID)){
             heart = 'fa-solid'
@@ -77,7 +75,15 @@ document.querySelector('form').addEventListener('submit', async (event) => {
                             </div>
                                 `
 
-        article.children[0].addEventListener('click', () => window.open(`/pages/movie.html?i=${pelicula.imdbID}`, '_self'))
+
+
+        if(pelicula.imdbID === peliculas.Search.find(e=> e.imdbID === pelicula.imdbID)?.imdbID){
+            article.children[0].addEventListener('click', () => window.open(`/pages/movie.html?i=${pelicula.imdbID}`, '_self'))
+        }else{
+            article.children[0].addEventListener('click', () => window.open(`/pages/movie.html?i=${pelicula.Title}`, '_self'))
+        }
+
+
         article.classList.add('relative', 'w-60', 'rounded-xl', 'bg-slate-900', 'p-3', 'text-white', 'cursor-pointer', 'hover:scale-105', 'transition', 'duration-300')
 
         const heartIcon = article.children[2].children[1]
@@ -106,3 +112,4 @@ document.querySelector('form').addEventListener('submit', async (event) => {
 
 
 })
+

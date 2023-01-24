@@ -39,7 +39,7 @@ document.querySelector('form').addEventListener('submit', async (event) => {
     }
 
     try {
-        await setDoc(doc(db, 'movies', `${movie.name}`), movie)
+        await setDoc(doc(db, 'movies', `${movie.Title}`), movie)
         movieCreatedPrint()
     } catch (error) {
         console.log(error);

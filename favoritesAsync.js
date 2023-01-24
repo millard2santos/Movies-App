@@ -32,38 +32,42 @@ const printFavorites = async () => {
 
 
         let heart = 'fa-regular'
-        if (favorites.find(e => e.imdbID === pelicula.imdbID)) {
+        if(favorites.find(e=> e.imdbID === pelicula.imdbID)){
             heart = 'fa-solid'
         }
+        
 
         const article = document.createElement('article')
         article.innerHTML = ` 
-                                    <img src="${pelicula.Poster}" alt="" class="h-[321px] mb-2">
-                                    <p>${pelicula.Title}</p>
-                                    <div class="flex gap-1 justify-between">
-                                        <p>${pelicula.Year}</p>
-                                        <i class="${heart} fa-heart absolute right-5 hover:scale-125 transition duration-300 z-10" ></i>
-                                    </div>
+                            <img src="${pelicula.Poster}" alt="" class="h-[321px] mb-2">
+                            <p>${pelicula.Title}</p>
+                            <div class="flex gap-1 justify-between">
+                                <p>${pelicula.Year}</p>
+                                <i class="${heart} fa-heart absolute right-5 hover:scale-125 transition duration-300 z-10" ></i>
+                            </div>
                                 `
+
+        article.children[0].addEventListener('click', () => window.open(`/pages/movie.html?i=${pelicula.imdbID}`, '_self'))
         article.classList.add('relative', 'w-60', 'rounded-xl', 'bg-slate-900', 'p-3', 'text-white', 'cursor-pointer', 'hover:scale-105', 'transition', 'duration-300')
 
         const heartIcon = article.children[2].children[1]
 
-        heartIcon.addEventListener('click', () => {
+        heartIcon.addEventListener('click', async () => {
 
             heartIcon.classList.toggle('fa-solid')
             heartIcon.classList.toggle('fa-regular')
 
-            if (heartIcon.className.includes('fa-solid')) {
+            if(heartIcon.className.includes('fa-solid')){
                 favorites.push(pelicula)
-                setDoc(doc(db, 'favorites', 'user1'), { favorites })
+                setDoc(doc(db,'favorites','user1'),{favorites})
 
-
-            } else {
-                favorites.splice(favorites.findIndex(e => e.imdbID === pelicula.imdbID), 1)
-
-                setDoc(doc(db, 'favorites', 'user1'), { favorites })
+                
+            }else{
+                favorites.splice(favorites.findIndex(e => e.imdbID === pelicula.imdbID),1)
+                
+                setDoc(doc(db,'favorites','user1'),{favorites})
             }
+            
         })
 
         container.append(article)
