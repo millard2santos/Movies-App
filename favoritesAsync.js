@@ -30,20 +30,13 @@ const printFavorites = async () => {
     
     favorites.forEach(pelicula => {
 
-
-        let heart = 'fa-regular'
-        if(favorites.find(e=> e.imdbID === pelicula.imdbID)){
-            heart = 'fa-solid'
-        }
-        
-
         const article = document.createElement('article')
         article.innerHTML = ` 
                             <img src="${pelicula.Poster}" alt="" class="h-[321px] mb-2">
                             <p>${pelicula.Title}</p>
                             <div class="flex gap-1 justify-between">
                                 <p>${pelicula.Year}</p>
-                                <i class="${heart} fa-heart absolute right-5 hover:scale-125 transition duration-300 z-10" ></i>
+                                <i class="fa-solid fa-heart absolute right-5 hover:scale-125 transition duration-300 z-10" ></i>
                             </div>
                                 `
 
@@ -64,7 +57,7 @@ const printFavorites = async () => {
                 
             }else{
                 favorites.splice(favorites.findIndex(e => e.imdbID === pelicula.imdbID),1)
-                
+                article.classList.add('hidden')
                 setDoc(doc(db,'favorites','user1'),{favorites})
             }
             

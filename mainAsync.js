@@ -20,7 +20,7 @@ document.querySelector('form').addEventListener('submit', async (event) => {
 
     event.preventDefault()
     container.innerHTML= ``
-    const peliculas = await fetch(`http://www.omdbapi.com/?apikey=${apiKey}&s=${event.target.name.value}`).then(res => res.json()).catch(err => console.log(err))
+    const peliculas = await fetch(`http://www.omdbapi.com/?apikey=${apiKey}&s=${event.target.name.value}`).then(res => res.json()).catch(err => console.log(err)) || []
     let favorites = await getDoc(doc(db, 'favorites', 'user1'))
     let moviesCreated = await getDocs(collection(db, "movies")).then(res => {
         let movies = []
@@ -29,7 +29,7 @@ document.querySelector('form').addEventListener('submit', async (event) => {
         return movies
     })
     .then(res => res.filter(e=> e.Title === event.target.name.value ))
-    .catch(err => console.log('No Data' , err))
+    
     console.log(moviesCreated);
     if(favorites.exists()){
         favorites = favorites.data().favorites
@@ -40,23 +40,8 @@ document.querySelector('form').addEventListener('submit', async (event) => {
 
 
 
-    let fullSearch;
-    switch (true) {
-        case peliculas.Search.length > 0 && moviesCreated.length > 0:
-            fullSearch = moviesCreated.concat(peliculas.Search)
-            break;
-        case peliculas.Search.length > 0 && moviesCreated.length  <= 0:
-            fullSearch = peliculas.Search
-            break;
-        case peliculas.Search.length <= 0 && moviesCreated.length > 0:
-            fullSearch = moviesCreated
-            break;
-        default:
-            fullSearch = []
-    }
-
-    console.log(peliculas.Search.length);
-    console.log(fullSearch);
+    let fullSearch = moviesCreated.concat(peliculas.Search)
+   
     
     fullSearch.forEach(pelicula => {
         let heart = 'fa-regular'
@@ -80,7 +65,7 @@ document.querySelector('form').addEventListener('submit', async (event) => {
         if(pelicula.imdbID === peliculas.Search.find(e=> e.imdbID === pelicula.imdbID)?.imdbID){
             article.children[0].addEventListener('click', () => window.open(`/pages/movie.html?i=${pelicula.imdbID}`, '_self'))
         }else{
-            article.children[0].addEventListener('click', () => window.open(`/pages/movie.html?i=${pelicula.Title}`, '_self'))
+            article.children[0].addEventListener('click', () => window.open(`/pages/movie.html?t=${pelicula.Title}`, '_self'))
         }
 
 

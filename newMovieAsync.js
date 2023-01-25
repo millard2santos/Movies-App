@@ -45,4 +45,6 @@ document.querySelector('form').addEventListener('submit', async (event) => {
         console.log(error);
     }
 
+    document.querySelector('form').reset()
+
 })
