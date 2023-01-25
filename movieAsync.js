@@ -85,6 +85,18 @@ const fetchAsync = (url) => {
 }
 
 const printMovie = async(movie) => {
+    console.log(movie);
+    const divInfo = document.querySelector('.info')
+    divInfo.children[0].children[0].innerText = movie.Title
+    divInfo.children[1].children[0].innerText = movie.Year
+    divInfo.children[2].children[0].innerText = movie.Runtime + 'min'
+    divInfo.children[3].children[0].innerText = movie.Director
+    divInfo.children[4].children[0].innerText = movie.Plot
+
+
+
+
+
     let favorites = await getDoc(doc(db, 'favorites', 'user1'))
 
     if(favorites.exists()){

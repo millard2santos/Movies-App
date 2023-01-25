@@ -13,12 +13,20 @@
     <link rel="stylesheet" href="../style.css">
 </head>
 
-<body class="min-h-screen bg-gradient-to-b from-[#4c0d55] to-[#7e198c] bg-no-repeat flex justify-center py-10">
-    <h1>Movie</h1>
-    <a href="../index.html">Back</a>
-    <div id="container">
-        <div></div>
-        <div></div>
+<body class="min-h-screen bg-gradient-to-b from-[#4c0d55] to-[#7e198c] bg-no-repeat text-white p-10">
+    <h1 class=" text-5xl text-center">Movie</h1>
+    <a class="text-2xl" href="../index.html">Home</a>
+    <div class="flex gap-4">
+        <div id="container">
+
+        </div>
+        <div class="info">
+            <p class="font-semibold text-lg">Title: <span class="font-normal text-base opacity-80"></span></p>
+            <p class="font-semibold text-lg">Year: <span class="font-normal text-base opacity-80"></span></p>
+            <p class="font-semibold text-lg">Duration: <span class="font-normal text-base opacity-80"></span></p>
+            <p class="font-semibold text-lg">Director: <span class="font-normal text-base opacity-80"></span></p>
+            <p class="font-semibold text-lg">Plot: <span class="font-normal text-base opacity-80"></span></p>
+        </div>
     </div>
 
     <script src="../movieAsync.js" type="module"></script>

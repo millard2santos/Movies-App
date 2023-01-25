@@ -18,8 +18,10 @@ const apiKey = 'aa64160e'
 
 document.querySelector('form').addEventListener('submit', async (event) => {
 
+    
     event.preventDefault()
     container.innerHTML= ``
+    
     const peliculas = await fetch(`http://www.omdbapi.com/?apikey=${apiKey}&s=${event.target.name.value}`).then(res => res.json()).catch(err => console.log(err)) || []
     let favorites = await getDoc(doc(db, 'favorites', 'user1'))
     let moviesCreated = await getDocs(collection(db, "movies")).then(res => {
@@ -31,6 +33,7 @@ document.querySelector('form').addEventListener('submit', async (event) => {
     .then(res => res.filter(e=> e.Title === event.target.name.value ))
     
     console.log(moviesCreated);
+    console.log(peliculas);
     if(favorites.exists()){
         favorites = favorites.data().favorites
         console.log('existe');
@@ -41,7 +44,15 @@ document.querySelector('form').addEventListener('submit', async (event) => {
 
 
     let fullSearch = moviesCreated.concat(peliculas.Search)
-   
+    console.log(fullSearch.length);
+    console.log(fullSearch.includes(undefined));
+    if((fullSearch.length <= 0) || fullSearch.includes(undefined)){
+        const h3 = document.createElement('h3')
+        h3.innerText = 'We cannot find the movie :('
+        h3.classList.add('font-semibold','text-xl')
+        container.append(h3)
+        return
+    } 
     
     fullSearch.forEach(pelicula => {
         let heart = 'fa-regular'

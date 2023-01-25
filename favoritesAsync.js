@@ -41,7 +41,7 @@ const printFavorites = async () => {
                                 `
 
         article.children[0].addEventListener('click', () => window.open(`/pages/movie.html?i=${pelicula.imdbID}`, '_self'))
-        article.classList.add('relative', 'w-60', 'rounded-xl', 'bg-slate-900', 'p-3', 'text-white', 'cursor-pointer', 'hover:scale-105', 'transition', 'duration-300')
+        article.classList.add('relative', 'w-60', 'rounded-xl', 'bg-slate-900', 'p-3', 'text-white', 'cursor-pointer', 'hover:scale-105', 'transition', 'duration-300', 'h-[430px]')
 
         const heartIcon = article.children[2].children[1]
 
@@ -68,3 +68,6 @@ const printFavorites = async () => {
 }
 
 printFavorites()
+
+
+

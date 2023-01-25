@@ -14,9 +14,10 @@ const db = getFirestore(app)
 
 
 const movieCreatedPrint = () => {
-    const div = document.createElement('div')
-    div.innerHTML = `<p>Your movie has been created!</p>`
-    document.body.append(div)
+    const h2 = document.createElement('h2')
+    h2.innerText = 'Your movie has been created!'
+    h2.classList.add('font-semibold', 'text-4xl', 'text-center')
+    document.body.append(h2)
 }
 
 const imdbCreate = () => {
@@ -35,7 +36,10 @@ document.querySelector('form').addEventListener('submit', async (event) => {
         Title: event.target.Title.value,
         Year: event.target.Year.value,
         Poster: event.target.Poster.value,
-        imdbID: imdbCreate()
+        imdbID: imdbCreate(),
+        Runtime: event.target.runtime.value,
+        Director: event.target.director.value,
+        Plot: event.target.plot.value
     }
 
     try {
