@@ -1,5 +1,6 @@
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js';
 import { getFirestore, collection, getDocs, setDoc, doc, getDoc, query, where } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js'
+import { getAuth} from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js'
 
 const firebaseConfig = {
     apiKey: "AIzaSyDEIGj6mYxYpVCfwQSA8GwqS1IapNyCRBA",
@@ -11,7 +12,7 @@ const firebaseConfig = {
 };
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app)
-// const ui = new firebaseui.auth.AuthUI(firebase.auth());
+const auth = getAuth(app)
 
 
 const apiKey = 'aa64160e'
@@ -21,8 +22,8 @@ document.querySelector('form').addEventListener('submit', async (event) => {
     
     event.preventDefault()
     container.innerHTML= ``
-    
-    const peliculas = await fetch(`http://www.omdbapi.com/?apikey=${apiKey}&s=${event.target.name.value}`).then(res => res.json()).catch(err => console.log(err)) || []
+
+    const peliculas = await fetch(`http://www.omdbapi.com/?apikey=${apiKey}&s=${event.target.name.value}`).then(res => res.json())
     let favorites = await getDoc(doc(db, 'favorites', 'user1'))
     let moviesCreated = await getDocs(collection(db, "movies")).then(res => {
         let movies = []
@@ -84,7 +85,7 @@ document.querySelector('form').addEventListener('submit', async (event) => {
 
         const heartIcon = article.children[2].children[1]
 
-        heartIcon.addEventListener('click', async () => {
+        heartIcon.addEventListener('click', () => {
 
             heartIcon.classList.toggle('fa-solid')
             heartIcon.classList.toggle('fa-regular')
