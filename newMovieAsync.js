@@ -37,7 +37,7 @@ document.querySelector('form').addEventListener('submit', async (event) => {
         Year: event.target.Year.value,
         Poster: event.target.Poster.value,
         imdbID: imdbCreate(),
-        Runtime: event.target.runtime.value,
+        Runtime: event.target.runtime.value + ' min',
         Director: event.target.director.value,
         Plot: event.target.plot.value
     }

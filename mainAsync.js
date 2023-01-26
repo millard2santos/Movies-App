@@ -1,6 +1,7 @@
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js';
 import { getFirestore, collection, getDocs, setDoc, doc, getDoc, query, where } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js'
-import { getAuth} from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js'
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js'
+
 
 const firebaseConfig = {
     apiKey: "AIzaSyDEIGj6mYxYpVCfwQSA8GwqS1IapNyCRBA",
@@ -15,30 +16,33 @@ const db = getFirestore(app)
 const auth = getAuth(app)
 
 
+
+
+
 const apiKey = 'aa64160e'
 
-document.querySelector('form').addEventListener('submit', async (event) => {
+document.querySelector('#movies').addEventListener('submit', async (event) => {
 
-    
+
     event.preventDefault()
-    container.innerHTML= ``
+    container.innerHTML = ``
 
     const peliculas = await fetch(`http://www.omdbapi.com/?apikey=${apiKey}&s=${event.target.name.value}`).then(res => res.json())
     let favorites = await getDoc(doc(db, 'favorites', 'user1'))
     let moviesCreated = await getDocs(collection(db, "movies")).then(res => {
         let movies = []
-        res.forEach( e=> movies.push(e.data()))
-     
+        res.forEach(e => movies.push(e.data()))
+
         return movies
     })
-    .then(res => res.filter(e=> e.Title === event.target.name.value ))
-    
+        .then(res => res.filter(e => e.Title === event.target.name.value))
+
     console.log(moviesCreated);
     console.log(peliculas);
-    if(favorites.exists()){
+    if (favorites.exists()) {
         favorites = favorites.data().favorites
         console.log('existe');
-    }else{
+    } else {
         favorites = []
     }
 
@@ -47,20 +51,20 @@ document.querySelector('form').addEventListener('submit', async (event) => {
     let fullSearch = moviesCreated.concat(peliculas.Search)
     console.log(fullSearch.length);
     console.log(fullSearch.includes(undefined));
-    if((fullSearch.length <= 0) || fullSearch.includes(undefined)){
+    if ((fullSearch.length <= 0) || fullSearch.includes(undefined)) {
         const h3 = document.createElement('h3')
         h3.innerText = 'We cannot find the movie :('
-        h3.classList.add('font-semibold','text-xl')
+        h3.classList.add('font-semibold', 'text-xl')
         container.append(h3)
         return
-    } 
-    
+    }
+
     fullSearch.forEach(pelicula => {
         let heart = 'fa-regular'
-        if(favorites.find(e=> e.imdbID === pelicula.imdbID)){
+        if (favorites.find(e => e.imdbID === pelicula.imdbID)) {
             heart = 'fa-solid'
         }
-        
+
 
         const article = document.createElement('article')
         article.innerHTML = ` 
@@ -74,9 +78,9 @@ document.querySelector('form').addEventListener('submit', async (event) => {
 
 
 
-        if(pelicula.imdbID === peliculas.Search.find(e=> e.imdbID === pelicula.imdbID)?.imdbID){
+        if (pelicula.imdbID === peliculas.Search.find(e => e.imdbID === pelicula.imdbID)?.imdbID) {
             article.children[0].addEventListener('click', () => window.open(`/pages/movie.html?i=${pelicula.imdbID}`, '_self'))
-        }else{
+        } else {
             article.children[0].addEventListener('click', () => window.open(`/pages/movie.html?t=${pelicula.Title}`, '_self'))
         }
 
@@ -90,17 +94,17 @@ document.querySelector('form').addEventListener('submit', async (event) => {
             heartIcon.classList.toggle('fa-solid')
             heartIcon.classList.toggle('fa-regular')
 
-            if(heartIcon.className.includes('fa-solid')){
+            if (heartIcon.className.includes('fa-solid')) {
                 favorites.push(pelicula)
-                setDoc(doc(db,'favorites','user1'),{favorites})
+                setDoc(doc(db, 'favorites', 'user1'), { favorites })
 
-                
-            }else{
-                favorites.splice(favorites.findIndex(e => e.imdbID === pelicula.imdbID),1)
-                
-                setDoc(doc(db,'favorites','user1'),{favorites})
+
+            } else {
+                favorites.splice(favorites.findIndex(e => e.imdbID === pelicula.imdbID), 1)
+
+                setDoc(doc(db, 'favorites', 'user1'), { favorites })
             }
-            
+
         })
 
         container.append(article)
@@ -110,3 +114,26 @@ document.querySelector('form').addEventListener('submit', async (event) => {
 
 })
 
+
+
+
+document.getElementById('signup').addEventListener('submit', async (event) => {
+    event.preventDefault()
+
+    await signInWithEmailAndPassword(auth, event.target.email.value, event.target.password.value)
+        .then((userCredential) => {
+            console.log(userCredential);
+            // Signed in 
+            const user = userCredential.user;
+            // ...
+            console.log(user);
+        })
+        .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            console.log(errorCode, errorMessage);
+        });
+
+
+    document.getElementById('signup').reset()
+})

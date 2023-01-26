@@ -10,7 +10,6 @@
     <script src="https://kit.fontawesome.com/4ef55b311e.js" crossorigin="anonymous"></script>
     <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js" type="module"></script>
     <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js" type="module"></script>
-    <script src="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600&family=Permanent+Marker&display=swap"
@@ -19,9 +18,17 @@
     <link rel="stylesheet" href="style.css">
 </head>
 
-<body class="min-h-screen bg-gradient-to-b from-[#4c0d55] to-[#7e198c] bg-no-repeat flex justify-center py-10">
+<body class="relative min-h-screen bg-gradient-to-b from-[#4c0d55] to-[#7e198c] bg-no-repeat flex justify-center p-10">
 
-
+    <div class="absolute w-[300px] h-[300px] bg-transparent right-0 text-white">
+        <a href="/pages/signUP.html">Sign Up</a>
+        <a href="/pages/signIn.html">Sign In</a>
+    <form action="" id="signup" class="text-black">
+        <input type="email" id="email" name="email" placeholder="email" class="">
+        <input type="password" id="password" name="password"  placeholder="password" class="">
+        <input type="submit" class="text-white" >
+    </form>
+    </div>
 
 
     <div class="container flex flex-col gap-7 justify-center items-center text-white self-start">
@@ -36,7 +43,7 @@
 
 
         <!-- <h1 class="text-7xl ">Movies</h1> -->
-        <form action="" class="w-full flex justify-center relative">
+        <form action="" class="w-full flex justify-center relative" id="movies">
             <!-- <i class="fa-solid fa-xl fa-magnifying-glass relative z-40 left-11 top-6"></i> -->
             <input class=" w-1/2 p-3 px-4 bg-[#4c0d55] border border-gray-300" type="text" name="name" id="name" placeholder="Movie Name">
             <input type="submit" value="Search" class="relative right-16 opacity-60 hover:opacity-100 cursor-pointer">

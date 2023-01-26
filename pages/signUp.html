@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create a Movie</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://kit.fontawesome.com/4ef55b311e.js" crossorigin="anonymous"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js" type="module"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js" type="module"></script>
+    <script src="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.js"></script>
+    
+</head>
+<body class="min-h-screen bg-gradient-to-b from-[#4c0d55] to-[#7e198c] bg-no-repeat p-10 text-white">
+    <h1 class="font-semibold text-5xl text-center">Register</h1>
+    <a class="font-semibold text-4xl underline" href="../index.html">Home</a>
+    <form action="" class="flex flex-col gap-2 justify-center items-center text-black">
+        <input class="p-2 w-[360px] rounded-sm" type="email" id="email" name="email" required placeholder="email">
+        <input class="p-2 w-[360px] rounded-sm" type="password" id="password" name="password" required placeholder="password">
+        <input type="submit" class="text-white" value="Registrarse">
+    </form>
+    
+    <script src="../signUp.js" type="module"></script>
+</body>
+</html>

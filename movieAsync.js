@@ -89,7 +89,7 @@ const printMovie = async (movie) => {
     const divInfo = document.querySelector('.info')
     divInfo.children[0].children[0].innerText = movie.Title
     divInfo.children[1].children[0].innerText = movie.Year
-    divInfo.children[2].children[0].innerText = movie.Runtime + 'min'
+    divInfo.children[2].children[0].innerText = movie.Runtime
     divInfo.children[3].children[0].innerText = movie.Director
     divInfo.children[4].children[0].innerText = movie.Plot
 
